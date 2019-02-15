@@ -7,8 +7,32 @@ export default class Navigator {
             let params = ''
 
             if(query) {
-                for(let items in value)
+                for(let item in query){
+                    let vals = query[item]
+
+                    if(vals !== undefined){
+                        params += item + '=' + '&' 
+                    }
+                }
             }
+
+            params = params ? "?" + params : params
+
+            return params
+        }
+
+        if(query){
+            params = formatQuery(query)
+        }
+
+        let homepath = `${location.pathname.split('/')[1]}` // 获取单页前缀
+
+        let url = `${homepath}${name}${params}`
+
+        if(type === 'replace'){
+            location.replace(url)// replace 跳转
+        }else{
+            location.href(url)// href 跳转
         }
     }
 }
