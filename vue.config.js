@@ -38,7 +38,17 @@ module.exports = {
   //     plugins: [...utils.htmlPlugins()]
   //   }
   // },
-  pages: utils.setPages(),
+  pages: utils.setPages({
+    addScript(){
+      if(process.env.NODE_ENV === 'production'){
+        return `
+          <script src="https://95.cnzz.com/z_stat.php?id=xxx&web_id=xxx" language="JavaScript"></script>
+        `
+      }
+
+      return ''
+    }
+  }),
   /*css: {
         modules: true,
     },*/

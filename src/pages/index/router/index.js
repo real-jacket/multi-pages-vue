@@ -12,7 +12,7 @@ let router = new Router({
     {
       path: '/',
       name: 'home',
-      component: ()=>{import('../views/home.vue')},
+      component: ()=>import('../views/home.vue'),
       meta: { title: '首页' }
     },
   ]

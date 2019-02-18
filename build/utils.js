@@ -1,6 +1,5 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // glob 是 webpack 安装时依赖的第三方模块，允许你使用 * 获取对应目录下的所有文件
 // lib/*.js lib目录下的所有js文件
@@ -71,45 +70,45 @@ const PAGE_PATH = path.resolve(__dirname,'../src/pages')
 
 // 使用 setPages 进行多入口的配置，就是上述两个的合并
 exports.setPages = configs => {
-    let entryFiles = glob.sync(PAGE_PATH + '/*/*.js')
-    let map = {}
+  let entryFiles = glob.sync(PAGE_PATH + '/*/*.js')
+  let map = {}
 
-    entryFiles.forEach(filePath => {
+  entryFiles.forEach(filePath => {
 
-        let filename = filePath.substring(filePath.lastIndexOf('\/')+1,filePath.lastIndexOf('.'))
-        let tmp = filePath.substring(0,filePath.lastIndexOf('\/'))
+    let filename = filePath.substring(filePath.lastIndexOf('\/')+1,filePath.lastIndexOf('.'))
+    let tmp = filePath.substring(0,filePath.lastIndexOf('.'))
 
-        let conf = {
-            // page 入口
-            entry: filePath,
-            // 模板来源
-            template:tmp + 'html', // 模板路径
-            // 在 dist/index.html 的输出
-            filename:filename + '.html', // 生成html 文件名
-            // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
-            chunks: ['mainfest','vendor',filename],
-            inject:true
-        }
+    let conf = {
+      // page 入口
+      entry: filePath,
+      // 模板来源
+      template:tmp + '.html', // 模板路径
+      // 在 dist/index.html 的输出
+      filename:filename + '.html', // 生成html 文件名
+      // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+      chunks: ['mainfest','vendor',filename],
+      inject:true
+    }
 
-        // 如果有自定义配置可以进行 merge
-        if(configs){
-            conf = merge(conf,configs)
-        }
+    // 如果有自定义配置可以进行 merge
+    if(configs){
+      conf = merge(conf,configs)
+    }
 
-        // 针对生产环境配置
-        if(process.env.NODE_ENV === 'production'){
-            conf = merge(conf,{
-                minify: {
-                    removeComments:true, // 删除 html 中的注释代码
-                    collapseWhitespace:true, // 删除 html 中的空白字符
-                    // removeAttribute: true // 删除 html 元素中属性的引导
-                },
-                chunksSortMode:'manual' // 按 manual 的顺序引入
-            })
-        }
+    // 针对生产环境配置
+    if(process.env.NODE_ENV === 'production'){
+      conf = merge(conf,{
+        minify: {
+          removeComments:true, // 删除 html 中的注释代码
+          collapseWhitespace:true, // 删除 html 中的空白字符
+          // removeAttribute: true // 删除 html 元素中属性的引导
+        },
+        chunksSortMode:'manual' // 按 manual 的顺序引入
+      })
+    }
 
-        map[filename] = conf
-    })
+    map[filename] = conf
+  })
 
-    return map
+  return map
 }
