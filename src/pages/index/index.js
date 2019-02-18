@@ -1,7 +1,14 @@
 import Vue from 'vue'
-import Home from './views/home'
+import App from './index.vue'
+import router from './router'
+import store from '@/store/'
+import { Navigator } from '../../common/navigator'
+
+Vue.prototype.$openRouter = Navigator.openRouter
 
 new Vue({
     el:'#app',
-    render:h=>h(Home)
+    router,
+    store,
+    render:h=>h(App)
 })
