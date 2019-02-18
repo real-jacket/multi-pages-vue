@@ -2,16 +2,21 @@
   <div class="about">
     <h1>This is an about page</h1>
     <div>
-  			http数据：{{dataStatus}}
-  			<button type="button" @click="getHttpData">获取github数据</button>
-  		</div>
+      http数据：{{ dataStatus }}
+      <button
+        type="button"
+        @click="getHttpData"
+      >
+        获取github数据
+      </button>
+    </div>
   </div>
 </template>
 <script>
 import {getTestData} from '../services/moduleA'
 
 export default {
-  name: 'about',
+  name: 'About',
   data(){
     return {
       dataStatus: '未获取'

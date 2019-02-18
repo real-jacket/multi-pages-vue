@@ -6,26 +6,26 @@ Vue.use(Router)
 let base = `${process.env.BASE_URL}`
 
 let router = new Router({
-    mode: 'history',
-    base: base,
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: ()=>{import('../views/home.vue')},
-            meta: { title: '首页' }
-        },
-    ]
+  mode: 'history',
+  base: base,
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: ()=>{import('../views/home.vue')},
+      meta: { title: '首页' }
+    },
+  ]
 })
 
 router.beforeEach((to, from, next) => {
-    let title = to.meta && to.meta.title
+  let title = to.meta && to.meta.title
     
-    if (title) {
-        document.title = title // 设置页面 title
-    }
+  if (title) {
+    document.title = title // 设置页面 title
+  }
     
-    /*if (to.name === 'home') {
+  /*if (to.name === 'home') {
     
         // 拦截并跳转至 page2 单页
         Vue.$openRouter({
@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
         });
     }*/
     
-    next()
+  next()
 })
 
 export default router

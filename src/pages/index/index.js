@@ -7,8 +7,8 @@ import { Navigator } from '../../common/navigator'
 Vue.prototype.$openRouter = Navigator.openRouter
 
 new Vue({
-    el:'#app',
-    router,
-    store,
-    render:h=>h(App)
+  el:'#app',
+  router,
+  store,
+  render:h=>h(App)
 })
